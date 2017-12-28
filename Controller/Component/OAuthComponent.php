@@ -552,18 +552,19 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  * @param type $username
  * @param type $password
  */
-	public function checkUserCredentials($client_id, $username, $password) {
-		$user = $this->User->find('first', array(
-			'conditions' => array(
-				$this->authenticate['fields']['username'] => $username,
-				$this->authenticate['fields']['password'] => AuthComponent::password($password)
-			),
-			'recursive' => -1
+	public function checkUserCredentials($client_id, $username, $password) {		
+		$result = $this->User->find('first', array(
+		    'conditions' => array(
+			$this->authenticate['fields']['username'] => $username,
+		    ),
+		    'recursive' => -1
 		));
-		if ($user) {
-			return array('user_id' => $user['User'][$this->User->primaryKey]);
+
+		$user = $result['User'];
+		if (!$user || !BlowfishPasswordHasher::check($password, $user[$this->authenticate['fields']['password']])) {
+		    return false;
 		}
-		return false;
+		return array('user_id' => $user[$this->User->primaryKey]);		
 	}
 
 /**
