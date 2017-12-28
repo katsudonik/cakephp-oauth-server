@@ -64,6 +64,14 @@ CakePlugin::loadAll(); // Loads all plugins at once
 CakePlugin::load('OAuth'); //Just load OAuth
 ```
 
+>>>
+app/Config/bootstrap.php
+```
+CakePlugin::loadAll(array(
+    'OAuth' => array('routes' => true)
+));
+```
+
 ### Include component in controller
 And include the component in your controller:
 
