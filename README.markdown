@@ -155,3 +155,33 @@ There is quite a bit of documentation through the code, so dive in, get your han
 
 [1]: https://github.com/quizlet/oauth2-php
 [2]: https://github.com/CakeDC/migrations
+
+
+***
+add 'OAuth.OAuth' into app/XxxController's load components
+
+```
+    public $components = [
+            'OAuth.OAuth',
+    ];
+```            
+
+add this function (required: Restrict it so that it can be used only for system_user)
+```
+    public function publish_client()
+    {
+        if(!isset($this->request->query['redirect_url'])){
+            $this->_errorLog(__METHOD__, __LINE__, $this->request->query, 'parameter error');
+            $this->response->statusCode(200);
+            $this->response->body(json_encode([
+                'result' => $this->RESULT_400,
+                'message' => $this->RESULT_400_MSG,
+            ]));
+            $this->response->send();
+            $this->_stop();
+            return;
+        }
+        return $this->_rtnJson($this->RESULT_200, $this->OAuth->Client->add($this->request->query['redirect_url']), '');
+    }
+```
+
