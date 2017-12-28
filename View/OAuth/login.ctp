@@ -13,8 +13,8 @@
 Please login
 
 <?php
-	echo $this->Form->input('email');
-	echo $this->Form->input('password');
+	echo $this->Form->input('email'); // if Users.login_id is Auth data, change to 'login_id'
+	echo $this->Form->input('password'); // if Users.login_pw is Auth data, change to 'login_pw' (hased in database)
 
 	echo $this->Form->end('submit');
 
