@@ -59,12 +59,6 @@ $ git submodule add git://github.com/thomseddon/cakephp-oauth-server.git Plugin/
 ### Loading the Plugin
 Load the plugin
 
-```PHP
-CakePlugin::loadAll(); // Loads all plugins at once
-CakePlugin::load('OAuth'); //Just load OAuth
-```
-
->>>
 app/Config/bootstrap.php
 ```
 CakePlugin::loadAll(array(
