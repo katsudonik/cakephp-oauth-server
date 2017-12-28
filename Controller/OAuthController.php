@@ -18,7 +18,7 @@ App::uses('OAuthAppController', 'OAuth.Controller');
  */
 class OAuthController extends OAuthAppController {
 
-	public $components = array('OAuth.OAuth', 'Auth', 'Session', 'Security');
+	public $components = array('OAuth.OAuth', 'Auth', 'Session', 'Security'); // if 'Auth' is loaded from app/AppController, reject 'Auth'  
 
 	public $uses = array('Users');
 
@@ -32,6 +32,8 @@ class OAuthController extends OAuthAppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
+		
+		// for Resource Owner Password Credentials Grant
 		$this->OAuth->authenticate = array('fields' => array('username' => 'email'));
 		$this->Auth->allow($this->OAuth->allowedActions);
 		$this->Security->blackHoleCallback = 'blackHole';
