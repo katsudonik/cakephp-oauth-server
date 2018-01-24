@@ -26,9 +26,10 @@ App::import('Vendor', 'oauth2-php/lib/OAuth2');
 App::import('Vendor', 'oauth2-php/lib/IOAuth2Storage');
 App::import('Vendor', 'oauth2-php/lib/IOAuth2RefreshTokens');
 App::import('Vendor', 'oauth2-php/lib/IOAuth2GrantUser');
+App::import('Vendor', 'oauth2-php/lib/IOAuth2GrantClient');
 App::import('Vendor', 'oauth2-php/lib/IOAuth2GrantCode');
 
-class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2RefreshTokens, IOAuth2GrantUser, IOAuth2GrantCode {
+class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2RefreshTokens, IOAuth2GrantUser, IOAuth2GrantClient, IOAuth2GrantCode {
 
 /**
  * AccessToken object.
@@ -104,7 +105,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  *
  * @var array
  */
-	public $grantTypes = array('authorization_code', 'refresh_token', 'password');
+	public $grantTypes = array('authorization_code', 'refresh_token', 'password', 'client_credentials');
 
 /**
  * OAuth2 Object
@@ -423,7 +424,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 	public function getClientDetails($client_id) {
 		$client = $this->Client->find('first', array(
 			'conditions' => array('client_id' => $client_id),
-			'fields' => array('client_id', 'redirect_uri'),
+			'fields' => array('client_id', 'redirect_uri', 'user_id'), 
 			'recursive' => -1
 		));
 		if ($client) {
@@ -567,6 +568,10 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 		return array('user_id' => $user[$this->User->primaryKey]);		
 	}
 
+	public function checkClientCredentialsGrant($client_id, $client_secret) {
+		return [];
+	}
+	
 /**
  * Grant type: authorization_code
  *
