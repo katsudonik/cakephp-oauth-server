@@ -433,6 +433,12 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 		return false;
 	}
 
+	public function getUserId(){
+		$accessToken = $this->getAccessToken($this->getBearerToken());
+		$client = $this->getClientDetails($accessToken['client_id']);
+		return $client['user_id'];
+	}
+	
 /**
  * Retrieve access token
  *
