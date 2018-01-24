@@ -18,7 +18,7 @@ App::uses('OAuthAppController', 'OAuth.Controller');
  */
 class OAuthController extends OAuthAppController {
 
-	public $components = array('OAuth.OAuth', 'Auth', 'Session', 'Security'); // if 'Auth' is loaded from app/AppController, reject 'Auth'  
+	public $components = array('OAuth.OAuth', 'Auth', 'Session', 'Security'); // if 'Auth' is loaded from app/AppController, reject 'Auth' fron here. 
 
 	public $uses = array('Users');
 
