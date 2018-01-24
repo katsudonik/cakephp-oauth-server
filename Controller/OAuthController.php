@@ -133,7 +133,7 @@ class OAuthController extends OAuthAppController {
  *	- client_id
  *	- client_secret
  *
- * 3) password - exchange raw details for token : this is dangerous when client is bad -> use client_credentials
+ * 3) password - exchange raw details for token : this is dangerous (when client is bad) -> use client_credentials
  *	- username
  *	- password
  *	- client_id
