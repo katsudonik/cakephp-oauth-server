@@ -139,6 +139,10 @@ class OAuthController extends OAuthAppController {
  *	- client_id
  *	- client_secret
  *
+ * 4) client_credentials 
+ *	- client_id
+ *	- client_secret
+ *
  */
 	public function token() {
 		$this->autoRender = false;
