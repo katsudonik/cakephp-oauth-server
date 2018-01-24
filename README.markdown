@@ -114,7 +114,8 @@ This plugin ships with all required models, including the "Clients" model for ad
 You may wish to handle adding clients yourself, see the tables.sql for the schema, or you can use the convenience method included in the model, like so:
 
 ```PHP
-$client = $this->OAuth->Client->add('http://www.return_url.com')
+$userId = 'aaa';
+$client = $this->OAuth->Client->add('http://www.return_url.com', $userId)
 ```
 Which will generate then client_id and client_secret and return something like:
 
@@ -168,7 +169,7 @@ add 'OAuth.OAuth' into app/XxxController's load components
     ];
 ```            
 
-add this function (required: Restrict it so that it can be used only for system_user)
+add this function in ApiController (required: Restrict it so that it can be used only for system_user)
 ```
     public function publish_client()
     {
@@ -184,6 +185,26 @@ add this function (required: Restrict it so that it can be used only for system_
             return;
         }
         return $this->_rtnJson($this->RESULT_200, $this->OAuth->Client->add($this->request->query['redirect_url']), '');
+    }
+    
+    
+    public function delete_access_token(){
+        try{
+            $data   = $this->request->query;
+            //必須パラメータチェック
+            if (!$this->_paramKeyExistsChk($data, ['prime_contractor_id'])) {
+                $this->_errorLog(__METHOD__, __LINE__, $data, 'Not Parameter error.');
+                return $this->_rtnJson(false, [], 0, $this->RESULT_400, self::RESULT_400_MSG);
+            }
+            return $this->OAuth->invalidateUserTokens($data['prime_contractor_id']) ? $this->_rtnJson(true, 'token was deleted!', 0): $this->_rtnJson(true, 'delete token error', 0, $this->RESULT_500, self::RESULT_500_MSG);
+        }catch(Exception $e){
+            $this->_errorLog(__METHOD__, __LINE__, $data, $e->getMessage());
+            return $this->_rtnJson(false, [], 0, $this->RESULT_500, self::RESULT_500_MSG);
+        }
+    }
+
+    private function fetchUserId(){
+        return $this->OAuth->getUserId();
     }
 ```
 
