@@ -438,6 +438,15 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 		$client = $this->getClientDetails($accessToken['client_id']);
 		return $client['user_id'];
 	}
+
+	public function debugToken() {
+		$accessToken = $this->getAccessToken($this->getBearerToken());
+		$client = $this->getClientDetails($accessToken['client_id']);
+		return [
+			'sub' => $client['user_id'],
+			'aud' => $$accessToken['client_id'], //TODO change to aud value
+		];
+	}	
 	
 /**
  * Retrieve access token
@@ -573,7 +582,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 		}
 		return array('user_id' => $user[$this->User->primaryKey]);		
 	}
-
+	
 	public function checkClientCredentialsGrant($client_id, $client_secret) {
 		return [];
 	}
