@@ -139,7 +139,7 @@ class OAuthController extends OAuthAppController {
  *	- client_id
  *	- client_secret
  *
- * 4) client_credentials (connect resource_owner-client at adding client timing) : user when requested from batch && resource_owner == client
+ * 4) client_credentials (connect resource_owner-client at adding client timing) : use when requested from batch && resource_owner == client
  *	- client_id
  *	- client_secret
  *
