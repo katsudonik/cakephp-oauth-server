@@ -123,7 +123,7 @@ class OAuthController extends OAuthAppController {
  * Example Token Endpoint - this is where clients can retrieve an access token
  *
  * Grant types and parameters:
- * 1) authorization_code - exchange code for token
+ * 1) authorization_code - exchange code for token : use when resource_owner != client
  *	- code
  *	- client_id
  *	- client_secret
@@ -133,13 +133,13 @@ class OAuthController extends OAuthAppController {
  *	- client_id
  *	- client_secret
  *
- * 3) password - exchange raw details for token
+ * 3) password - exchange raw details for token : this is dangerous when client is bad -> use client_credentials
  *	- username
  *	- password
  *	- client_id
  *	- client_secret
  *
- * 4) client_credentials 
+ * 4) client_credentials (connect resource_owner-client at adding client timing) : user when requested from batch && resource_owner == client
  *	- client_id
  *	- client_secret
  *
