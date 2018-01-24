@@ -113,6 +113,8 @@ class Client extends OAuthAppModel {
  * AddClient
  *
  * Convinience function for adding client, will create a uuid client_id and random secret
+ * 
+ * if client credentials grant, connect client-user at adding client timing.
  *
  * @param mixed $data Either an array (e.g. $controller->request->data) or string redirect_uri
  * @return booleen Success of failure
