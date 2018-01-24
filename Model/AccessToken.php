@@ -43,11 +43,11 @@ class AccessToken extends OAuthAppModel {
 				'rule' => array('notempty'),
 			),
 		),
-		'user_id' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-			),
-		),
+// 		'user_id' => array(
+// 			'notempty' => array(
+// 				'rule' => array('notempty'),
+// 			),
+// 		),
 		'expires' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
