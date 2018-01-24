@@ -153,6 +153,15 @@ class OAuthController extends OAuthAppController {
 		}
 	}
 
+	public function debug_token() {
+		$this->autoRender = false;
+		try {
+			return $this->OAuth->debugToken();
+		} catch (OAuth2ServerException $e) {
+			$e->sendHttpResponse();
+		}		
+	}
+	
 /**
  * Quick and dirty example implementation for protecetd resource
  *
